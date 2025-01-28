@@ -12,7 +12,7 @@ router.post("/api/register", async (req, res) => {
       return res.status(400).json({ error: "All fields are required" });
     }
 
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ username });
     if (existingUser) {
       return res.status(400).json({ error: "User already registered" });
     }
