@@ -1,7 +1,21 @@
-const signInForm = document.querySelector('.sign-in form');
-const signUpForm = document.querySelector('.sign-up form');
+const signInForm = document.querySelector(".sign-in form");
+const signUpForm = document.querySelector(".sign-up form");
+const wrapper = document.querySelector(".wrapper");
 
-signUpForm.addEventListener('submit', async (event) => {
+const signUpBtnLink = document.querySelector(".signUpBtn-link");
+const signInBtnLink = document.querySelector(".signInBtn-link");
+
+signUpBtnLink.addEventListener("click", (event) => {
+  event.preventDefault();
+  wrapper.classList.add("active");
+});
+
+signInBtnLink.addEventListener("click", (event) => {
+  event.preventDefault();
+  wrapper.classList.remove("active");
+});
+
+signUpForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const username = signUpForm.querySelector('input[type="text"]').value;
@@ -9,35 +23,35 @@ signUpForm.addEventListener('submit', async (event) => {
   const password = signUpForm.querySelector('input[type="password"]').value;
 
   try {
-    const response = await fetch('http://localhost:5000/api/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const response = await fetch("http://localhost:5000/api/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, email, password }),
     });
 
     const data = await response.json();
     alert(data.message || data.error);
   } catch (error) {
-    alert('Registration failed!');
+    alert("Registration failed!");
   }
 });
 
-signInForm.addEventListener('submit', async (event) => {
+signInForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const username = signInForm.querySelector('input[type="text"]').value;
   const password = signInForm.querySelector('input[type="password"]').value;
 
   try {
-    const response = await fetch('http://localhost:5000/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const response = await fetch("http://localhost:5000/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
     });
 
     const data = await response.json();
     alert(data.message || data.error);
   } catch (error) {
-    alert('Login failed!');
+    alert("Login failed!");
   }
 });
